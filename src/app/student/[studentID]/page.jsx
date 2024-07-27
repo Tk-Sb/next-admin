@@ -8,7 +8,7 @@ export default async function StudentProfile({ params }) {
     console.log(student)
     return(
         <>
-            <h1>Profile for {params.studentID}</h1>
+            <h1>Profile for test PP{params.studentID}</h1>
         </>
     )
 }
