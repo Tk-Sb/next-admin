@@ -29,7 +29,6 @@ export async function CreateSession(studentId){
 
     cookies().set("session", session, { expires, httpOnly: true })
     redirect(`/student/${studentId}`)
-
 }
 
 export async function VerifySession(){

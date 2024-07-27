@@ -5,8 +5,6 @@ import { StudentsTable } from "@/db/schema"
 import { z } from "zod"
 import { CreateSession } from "../_lib/session"
 import { eq } from "drizzle-orm"
-import { NextResponse } from "next/server"
-import { redirect } from "next/dist/server/api-utils"
 
 export async function UserLogin(prevState, formData){
     // form data schema
@@ -18,7 +16,9 @@ export async function UserLogin(prevState, formData){
         username: formData.get('username'),
         password: formData.get('password')
     })
+
     const [student] = await db.select().from(StudentsTable).where(eq(StudentsTable.username, data.username))
+    
     if(!student){
         // username not found
         return {message: "Wrong username"}
