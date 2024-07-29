@@ -44,28 +44,27 @@ export async function CreateSession(studentId){
     redirect(`/student/${studentId}`)
 }
 
-// export async function UpdateSession(request){
-//     const session = request.cookies.get("session")?.value
-//     const res = NextResponse.next()
+export async function UpdateSession(request){
+    const session = request.cookies.get("session")?.value
+    
+    if(!session){
+        return NextResponse.redirect(new URL("/login", request.url))
+    }
+    else if(session){
+        // update session so it doesn't expire
+        const decrypted = await decrypt(session)
+        decrypted.expires = new Date(Date.now() + 60 * 1000 * 10)
 
-//     if(!session){
-//         return null
-//     }
-//     else if(session){
-//         // update session so it doesn't expire
-//         const decrypted = await decrypt(session)
-//         decrypted.expires = new Date(Date.now() + 60 * 1000 * 10)
-
-        
-//         res.cookies.set({
-//             name: "session",
-//             value: await encrypt(decrypted),
-//             httpOnly: true,
-//             expires: decrypted.expires
-//         })
-//         return res
-//     }
-// }
+        const res = NextResponse.next()
+        res.cookies.set({
+            name: "session",
+            value: await encrypt(decrypted),
+            httpOnly: true,
+            expires: decrypted.expires
+        })
+        return res
+    }
+}
 export async function DeleteSession(){
     
 }
