@@ -3,12 +3,17 @@ import { StudentsTable } from "@/db/schema"
 import { eq } from "drizzle-orm"
 
 export default async function StudentProfile({ params }) {
-    const [student] = await db.select().from(StudentsTable).where(eq(StudentsTable.id, params.studentID))
+    // fetching data for student, returns { firstName: Tk, lastName: Sb, notes: [] }
+    const [studentData] = await db.select({
+        firstName: StudentsTable.firstName,
+        lastName: StudentsTable.lastName,
+        notes: StudentsTable.notes
+    }).from(StudentsTable).where(eq(StudentsTable.id, params.studentID))
     
-    console.log(student)
+    console.log(studentData)
     return(
         <>
-            <h1>Profile for test PP{params.studentID}</h1>
+            <h1>Profile for {params.studentID}</h1>
         </>
     )
 }

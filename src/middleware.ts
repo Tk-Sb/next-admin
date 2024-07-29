@@ -1,21 +1,13 @@
-import { cookies } from "next/headers"
-import { NextRequest, NextResponse } from "next/server"
-import { decrypt } from "./app/_lib/session"
+import { NextResponse, type NextRequest } from "next/server"
 
 export async function middleware(request: NextRequest){
-    const protectedRoutes = ["/student/1"]
-    const currentPath = request.nextUrl.pathname
-    const isProtected = protectedRoutes.includes(currentPath)
 
-    if(isProtected){
-        const cookie = cookies().get("session")?.value
-        const session = await decrypt(cookie)
-        
-        if(!session?.studentId){
-            return NextResponse.redirect(new URL("/login", request.nextUrl))
-        }
-        else{
-            return NextResponse.next()
-        }
-    }
+    console.log("middleware")
+    return NextResponse.redirect(new URL("/login", request.url))
+}
+export const config = {  
+    matcher: [  
+        // All routes except for '/login' '/home'
+        '/((?!api|_next/static|_next/image|login|home).*)',  
+    ],
 }

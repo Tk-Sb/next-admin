@@ -17,7 +17,12 @@ export async function UserLogin(prevState, formData){
         password: formData.get('password')
     })
 
-    const [student] = await db.select().from(StudentsTable).where(eq(StudentsTable.username, data.username))
+    // searching for the student in the database using the entered username
+    const [student] = await db.select({
+        id: StudentsTable.id,
+        username: StudentsTable.username,
+        password: StudentsTable.password
+    }).from(StudentsTable).where(eq(StudentsTable.username, data.username))
     
     if(!student){
         // username not found
