@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from "next/server"
+import { type NextRequest } from "next/server"
 import { UpdateSession } from "./app/_lib/session"
 
 export async function middleware(request: NextRequest){

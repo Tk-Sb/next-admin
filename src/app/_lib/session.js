@@ -41,7 +41,7 @@ export async function CreateSession(studentId){
         { expires, httpOnly: true } // cookie options
     )
     // redirect the student to his dashboard using his Id
-    redirect(`/student/${studentId}`)
+    redirect(`/student`)
 }
 
 export async function UpdateSession(request){
