@@ -7,6 +7,6 @@ export async function middleware(request: NextRequest){
 export const config = {  
     matcher: [  
         // All routes except for '/login' '/home'
-        '/((?!api|_next/static|_next/image|login|home).*)',  
+        '/((?!api|_next/static|_next/image|login|home|testing).*)',  
     ],
 }
