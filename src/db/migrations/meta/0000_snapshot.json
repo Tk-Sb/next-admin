@@ -1,15 +1,59 @@
 {
-  "id": "3cd7b17f-192a-41bd-8aed-fb7269238c6b",
+  "id": "20c75e0e-4182-4d39-8e94-37f9941a19ee",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.Classes": {
+      "name": "Classes",
+      "schema": "",
+      "columns": {
+        "classId": {
+          "name": "classId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "class": {
+          "name": "class",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Grades": {
+      "name": "Grades",
+      "schema": "",
+      "columns": {
+        "gradeId": {
+          "name": "gradeId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "grade": {
+          "name": "grade",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.Students": {
       "name": "Students",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "studentId": {
+          "name": "studentId",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
@@ -23,6 +67,18 @@
         "last_name": {
           "name": "last_name",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gradeId": {
+          "name": "gradeId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "classId": {
+          "name": "classId",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -46,7 +102,34 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "Students_gradeId_Grades_gradeId_fk": {
+          "name": "Students_gradeId_Grades_gradeId_fk",
+          "tableFrom": "Students",
+          "tableTo": "Grades",
+          "columnsFrom": [
+            "gradeId"
+          ],
+          "columnsTo": [
+            "gradeId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "Students_classId_Classes_classId_fk": {
+          "name": "Students_classId_Classes_classId_fk",
+          "tableFrom": "Students",
+          "tableTo": "Classes",
+          "columnsFrom": [
+            "classId"
+          ],
+          "columnsTo": [
+            "classId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
